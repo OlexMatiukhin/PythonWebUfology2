@@ -15,6 +15,8 @@ import os
 import dj_database_url
 from dotenv import load_dotenv
 
+
+ENVIRONMENT = os.getenv("ENVIRONMENT", "local")
 # Load environment variables from .env if present
 load_dotenv()
 
