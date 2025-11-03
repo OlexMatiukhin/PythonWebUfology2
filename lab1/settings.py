@@ -72,6 +72,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'lab1.wsgi.application'
 
+if GIT_BRANCH == "develop":
+    ENVIRONMENT = "sandbox"
+    DEBUG = True
+elif GIT_BRANCH == "master":
+    ENVIRONMENT = "production"
+    DEBUG = False
+
+
 
 if os.getenv('DATABASE_URL'):
 
