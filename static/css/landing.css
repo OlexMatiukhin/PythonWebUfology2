@@ -1,0 +1,163 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #222;
+    color: #e0ffe0;
+}
+
+
+
+/* Header контейнер */
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between; /* Раздвигаем элементы слева и справа */
+    background: rgb(21, 21, 21);
+    padding: 30px 20px; /* внутренние отступы сверху/снизу и слева/справа */
+    margin-bottom: 40px;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Логотип + текст */
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* расстояние между картинкой и текстом */
+}
+
+/* Картинка логотипа */
+.logo-image {
+    width: 60px;
+    height: 60px;
+}
+
+.logo-image img {
+    width: 100%;
+    height: 100%;
+}
+
+/* Текст логотипа */
+.logo-text {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0f0;
+    letter-spacing: 2px;
+}
+
+/* Навигация (справа) */
+.header-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 2px;
+    font-size: 1.5rem;
+    font-weight: normal;
+    transition: color 0.3s;
+}
+
+.header-nav a:hover {
+    color: #0f0; /* при наведении меняем цвет */
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+
+    margin: 0px auto;
+}
+.block {
+    display: flex;
+    flex-direction: row;
+    background: #222;
+    overflow: hidden;
+   height: 600px;
+   margin-bottom: 100px;
+
+
+}
+
+.block-content {
+ height: 100%;
+ flex:1;
+}
+
+.block-image {
+    flex:1;
+    background: #222;
+    padding-right: 20px;
+
+}
+.block-image img {
+
+    width: 100%;
+    height: 70%;
+
+}
+
+.block-text{
+    margin-left: 30px;
+    margin-top: 1px;
+}
+
+
+.block-text h2{
+    margin-bottom: 15px;
+}
+.block-text p{
+    font-size: 1.2rem;
+    line-height: 1.6;
+
+    max-width: 700px;
+}
+
+.block-btn {
+
+    background: rgb(3, 173, 3);
+    color: #111;
+    width: 200px;
+    border: none;
+    padding: 18px 36px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    opacity: 0.92;
+     margin-top: 20px;
+
+
+}
+.block-btn:hover {
+    background: #111;
+    color: #0f0;
+}
+
+footer{
+    display: flex;
+    flex-direction: column;
+    background: rgb(20, 19, 19);
+    padding:20px 0 20px 0;
+    align-items: center;
+    color: #0f0;
+    gap: 10px;
+
+}
+.social-networks{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+
+    gap: 10px;
+}
+.social-networks-icon img{
+    width: 40px;
+    height: 40px;
+
+}
+

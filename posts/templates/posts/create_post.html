@@ -1,0 +1,28 @@
+{% extends 'users/base_user.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/css/create_post.css">
+{% endblock %}
+{% block content %}
+
+<div class="blog-container">
+    <h2 class="blog-title">Створити новий пост</h2>
+    <form method="POST" action="{% url 'users:posts:create_post' %}" enctype="multipart/form-data" class="blog-post">
+        {% csrf_token %}
+        <label for="id_title">Заголовок:</label>
+        {{ form.title }}
+
+        <label for="id_content">Текст:</label>
+        {{ form.content }}
+
+        <label for="id_preview_image">Прев’ю фото:</label>
+        {{ form.preview_image }}
+
+        <label for="id_category">Категорія:</label>
+        {{ form.category }}
+
+        <button type="submit" class="read-more">Опублікувати</button>
+    </form>
+
+</div>
+{% endblock %}

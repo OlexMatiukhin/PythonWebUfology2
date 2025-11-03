@@ -1,0 +1,49 @@
+<!-- templates/blog/post_detail.html -->
+{% extends 'users/base_user.html' %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/post_detail.css">
+{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ post.title }}</h2>
+    <p><strong>Автор:</strong> {{ post.author.username }}</p>
+    <p><strong>Категорія:</strong> {{ post.category }}</p>
+    <p>{{ post.content }}</p>
+    {% if post.preview_image %}
+        <img src="{{ post.preview_image.url }}" alt="preview" class="img-fluid mb-3">
+    {% endif %}
+    <p>👍 {{ post.likes }} | 👎 {{ post.dislikes }}</p>
+    <hr>
+{% if user.is_authenticated %}
+    <form method="post" action="{% url 'users:posts:delete_post' post.id %}" style="margin-top: 15px;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Видалити пост</button>
+    </form>
+{% endif %}
+
+
+    <h4>Коментарі ({{ comments.count }})</h4>
+    {% for comment in comments %}
+        <div class="border p-2 mb-2">
+            <strong>{{ comment.author.username }}</strong>
+            <small class="text-muted">{{ comment.created_at|date:"d.m.Y H:i" }}</small>
+            <p>{{ comment.text }}</p>
+            <p>👍 {{ comment.likes }} | 👎 {{ comment.dislikes }}</p>
+        </div>
+    {% empty %}
+        <p>Немає коментарів.</p>
+    {% endfor %}
+    <hr>
+
+    {% if user.is_authenticated %}
+        <h5>Додати коментар:</h5>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Надіслати</button>
+        </form>
+    {% else %}
+        <p><a href="{% url 'users:login' %}">Увійдіть</a>, щоб залишити коментар.</p>
+    {% endif %}
+</div>
+{% endblock %}

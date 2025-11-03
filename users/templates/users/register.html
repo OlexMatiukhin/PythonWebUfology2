@@ -1,0 +1,68 @@
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+</head>
+
+
+<div class="register-container">
+    <div class="register-box">
+        <h2>Реєстрація</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="{{ form.first_name.id_for_label }}">Ім’я</label>
+                {{ form.first_name }}
+                {{ form.first_name.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.last_name.id_for_label }}">Прізвище</label>
+                {{ form.last_name }}
+                {{ form.last_name.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">Логін</label>
+                {{ form.username }}
+                {{ form.username.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">Електронна пошта</label>
+                {{ form.email }}
+                {{ form.email.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.password1.id_for_label }}">Пароль</label>
+                {{ form.password1 }}
+                {{ form.password1.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.password2.id_for_label }}">Підтвердження пароля</label>
+                {{ form.password2 }}
+                {{ form.password2.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.role.id_for_label }}">Роль</label>
+                {{ form.role }}
+                {{ form.role.errors }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Зареєструватися</button>
+        </form>
+
+        <div class="login-link">
+            Вже маєте акаунт? <a href="{% url 'users:login' %}">Увійти</a>
+        </div>
+    </div>
+</div>
+
+

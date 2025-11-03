@@ -1,0 +1,71 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+   {% block css %}
+
+{% endblock %}
+</head>
+<body>
+<header>
+    <div class="header-logo">
+        <div class="logo-image">
+            <img src="{% static 'image.png' %}" alt="logo">
+        </div>
+        <div class="logo-text">
+            UFOLOGIC
+        </div>
+    </div>
+
+    <div class="header-nav">
+        {% if user.is_authenticated %}
+            {% if user.role == "blogger" %}
+                <a href="{% url 'users:main_page' %}">Пости</a>
+                <a href="{% url 'users:posts:create_post' %}">Створити пост</a>
+                 <a href="{% url 'users:profile' %}">Профіль</a>
+            {% else %}
+                <a href="{% url 'users:main_page' %}">Пости</a>
+                <a href="{% url 'users:profile' %}">Профіль</a>
+            {% endif %}
+            <a href="{% url 'users:logout' %}">Вийти</a>
+        {% else %}
+            <a href="{% url 'users:login' %}">Увійти</a>
+            <a href="{% url 'users:register' %}">Реєстрація</a>
+        {% endif %}
+    </div>
+</header>
+{% block content %}
+
+
+
+{% endblock %}
+
+<footer>
+    <div class="social-networks">
+        <div class="social-networks-icon">
+            <a href="#"><img src="{% static 'icons/greenfacebook.png' %}" alt="Facebook"></a>
+        </div>
+        <div class="social-networks-icon">
+            <a href="#"><img src="{% static 'icons/youtbgreen.png' %}" alt="YouTube"></a>
+        </div>
+        <div class="social-networks-icon">
+            <a href="#"><img src="{% static 'icons/greeninstagram.png' %}" alt="Instagram"></a>
+        </div>
+        <div class="social-networks-icon">
+            <a href="#"><img src="{% static 'icons/twittergreen.png' %}" alt="Twitter"></a>
+        </div>
+    </div>
+    <div class="copyright">
+        © 2025 UFOLOGIC, Inc.
+    </div>
+</footer>
+
+</body>
+</html>
+
+
+
+
+

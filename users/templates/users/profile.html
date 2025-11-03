@@ -1,0 +1,39 @@
+{% extends 'users/base_user.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+        <h2>👤 Профіль користувача</h2>
+        <div class="profile-info">
+            <p><strong>Ім’я користувача:</strong> {{ user.username }}</p>
+            <p><strong>Ім’я:</strong> {{ user.first_name }}</p>
+            <p><strong>Прізвище:</strong> {{ user.last_name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Роль:</strong>
+                {% if user.role == "blogger" %}
+                    <span class="role blogger">Блогер</span>
+                {% elif user.role == "admin" %}
+                    <span class="role admin">Адмін</span>
+                {% else %}
+                    <span class="role user">Користувач</span>
+                {% endif %}
+            </p>
+            <p><strong>Дата приєднання:</strong> {{ user.date_joined|date:"d.m.Y" }}</p>
+        </div>
+
+        <hr>
+
+        {% if user.role == "blogger" %}
+            <div class="blogger-section">
+                <h3>Блогерські можливості</h3>
+                <div class="blogger-links">
+                    <a href="{% url 'users:my_posts' %}" class="btn-check-posts">Переглянути мої пости</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

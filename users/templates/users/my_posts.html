@@ -1,0 +1,39 @@
+{% extends 'users/base_user.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/main.css">
+{% endblock %}
+
+
+{% block content %}
+<div class="blog-container">
+    <h2 class="blog-title">Мої пости</h2>
+
+    {% if posts %}
+        {% for post in posts %}
+            <div class="blog-post">
+                {% if post.preview_image %}
+                    <img src="{{ post.preview_image.url }}" alt="{{ post.title }}" class="preview-img">
+                {% endif %}
+
+                <h3>{{ post.title }}</h3>
+
+                <p class="blog-content">
+                    {{ post.content|truncatewords:40 }}
+                </p>
+
+                <div class="blog-footer">
+                    <span>👍 {{ post.likes }}</span>
+                    <span>👎 {{ post.dislikes }}</span>
+                </div>
+
+                <a href="{% url 'users:posts:blogger_posts_detail' post.id %}" class="read-more">Детально</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>У вас немає постів 😔</p>
+    {% endif %}
+</div>
+
+
+{% endblock %}

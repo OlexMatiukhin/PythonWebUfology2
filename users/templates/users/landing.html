@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+</head>
+<body>
+<header>
+    <div class="header-logo">
+        <div class="logo-image">
+            <img src="{% static 'image.png' %}" alt="logo">
+        </div>
+        <div class="logo-text">
+            UFOLOGIC
+        </div>
+    </div>
+    <div class="header-nav">
+        <a href="{% url 'users:login' %}">Увійти</a>
+    </div>
+</header>
+
+<div class="main-content">
+
+    {% comment %} ======== Блок 1 ======== {% endcomment %}
+    <div class="block">
+        <div class="block-content">
+            <div class="block-text">
+                <h2>Що таке UFOLOGIC?</h2>
+                <p>Ви побачали НЛО, але ніхто вам не вірить. UFOLOGIC — спільнота, в якій кожен може бути почутим! Доєднуйтесь до нас!</p>
+                <a href="{% url 'users:login' %}"><button class="block-btn">Реєструйтесь</button></a>
+
+            </div>
+        </div>
+        <div class="block-image">
+            <img src="{% static 'block1.png' %}" alt="Block 1">
+        </div>
+    </div>
+
+    {% comment %} ======== Блок 2 ======== {% endcomment %}
+    <div class="block">
+        <div class="block-content">
+            <div class="block-text">
+                <h2>Щоденна публікація блогів.</h2>
+                <p>Актуальне інформування щодо інцидентів по всьому світу: аномалії, привиди, викрадення людей, НЛО, прибульці і навіть більше!</p>
+                <a href="{% url 'users:login' %}"><button class="block-btn">Реєструйтесь</button></a>
+            </div>
+        </div>
+        <div class="block-image">
+            <img src="{% static 'block2.jpg' %}" alt="Block 2">
+        </div>
+    </div>
+
+    {% comment %} ======== Блок 3 ======== {% endcomment %}
+    <div class="block">
+        <div class="block-content">
+            <div class="block-text">
+                <h2>Створення власного блогу.</h2>
+                <p>Реєструйтесь як блогер і опишіть свої враження в пості!</p>
+                <a href="{% url 'users:login' %}"><button class="block-btn">Реєструйтесь</button></a>
+            </div>
+        </div>
+        <div class="block-image">
+            <img src="{% static 'block3.jpg' %}" alt="Block 3">
+        </div>
+    </div>
+
+
+    <div class="block">
+        <div class="block-content">
+            <div class="block-text">
+                <h2>Організація зборів.</h2>
+                <p>Проведіть власний івент або приєднайтесь до вже організованого. Разом протистояти легше.</p>
+                <a href="{% url 'users:login' %}"><button class="block-btn">Реєструйтесь</button></a>
+            </div>
+        </div>
+        <div class="block-image">
+            <img src="{% static 'block4.jpg' %}" alt="Block 4">
+        </div>
+    </div>
+
+    {% comment %} ======== Блок 5 ======== {% endcomment %}
+    <div class="block">
+        <div class="block-content">
+            <div class="block-text">
+                <h2>Стали свідком чогось незвичайного?</h2>
+                <p>Навіть якщо ви просто читач — ви можете поділитись своїм досвідом з нами!</p>
+                <a href="{% url 'users:login' %}"><button class="block-btn">Реєструйтесь</button></a>
+            </div>
+        </div>
+        <div class="block-image">
+            <img src="{% static 'block5.png' %}" alt="Block 5">
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="social-networks">
+        <div class="social-networks-icon">
+            <a href="#"><img src="{% static 'icons/greenfacebook.png' %}" alt="Facebook"></a>
+        </div>
+        <div class="social-networks-icon">
+            <a href="#"><img src="{% static 'icons/youtbgreen.png' %}" alt="YouTube"></a>
+        </div>
+        <div class="social-networks-icon">
+            <a href="#"><img src="{% static 'icons/greeninstagram.png' %}" alt="Instagram"></a>
+        </div>
+        <div class="social-networks-icon">
+            <a href="#"><img src="{% static 'icons/twittergreen.png' %}" alt="Twitter"></a>
+        </div>
+    </div>
+    <div class="copyright">
+        © 2025 UFOLOGIC, Inc.
+    </div>
+</footer>
+</body>
+</html>

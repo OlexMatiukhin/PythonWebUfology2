@@ -1,0 +1,173 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+     display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #222;
+    color: #e0ffe0;
+}
+html, body {
+    height: 100%;
+}
+.blog-container {
+    flex: 1;
+}
+
+
+/* Header контейнер */
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between; /* Раздвигаем элементы слева и справа */
+    background: rgb(21, 21, 21);
+    padding: 30px 20px; /* внутренние отступы сверху/снизу и слева/справа */
+    margin-bottom: 40px;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Логотип + текст */
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* расстояние между картинкой и текстом */
+}
+.header-nav{
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+    justify-content: space-between
+}
+
+/* Картинка логотипа */
+.logo-image {
+    width: 60px;
+    height: 60px;
+}
+
+.logo-image img {
+    width: 100%;
+    height: 100%;
+}
+
+/* Текст логотипа */
+.logo-text {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0f0;
+    letter-spacing: 2px;
+}
+
+/* Навигация (справа) */
+.header-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: normal;
+    transition: color 0.3s;
+}
+
+.header-nav a:hover {
+    color: #0f0; /* при наведении меняем цвет */
+}
+
+
+
+.profile-container {
+    margin-top: 40px;
+    margin-left: 30px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    flex: 1;
+}
+
+
+
+
+.profile-container h2 {
+    text-align: center;
+    color: #0f0;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.profile-info p {
+    color: #e0ffe0;
+    font-size: 1.1rem;
+    margin: 8px 0;
+}
+
+.role {
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.role.user { background-color: #6c757d; color: #fff; }
+.role.blogger { background-color: #17a2b8; color: #fff; }
+.role.admin { background-color: #dc3545; color: #fff; }
+
+.blogger-section {
+    margin-top: 25px;
+}
+
+.blogger-section h3 {
+    color: #0f0;
+    margin-bottom: 10px;
+}
+
+.blogger-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn-check-posts {
+    display: block;
+    padding: 10px 18px;
+    width: 400px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-check-posts {
+    background-color: #0f0;
+    color: #111;
+}
+
+.btn-check-posts:hover {
+    background-color: #111;
+    color: #0f0;
+    box-shadow: 0 0 10px #0f0;
+}
+
+
+footer{
+    display: flex;
+    flex-direction: column;
+    background: rgb(20, 19, 19);
+    padding:20px 0 20px 0;
+    align-items: center;
+    color: #0f0;
+    gap: 10px;
+
+}
+.social-networks{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+.social-networks-icon img{
+    width: 40px;
+    height: 40px;
+
+}

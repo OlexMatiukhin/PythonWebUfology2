@@ -1,0 +1,242 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #222;
+    color: #0f0;
+}
+html, body {
+    height: 100%;
+}
+
+
+/* Header контейнер */
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background: rgb(21, 21, 21);
+    padding: 30px 20px;
+
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Логотип + текст */
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* расстояние между картинкой и текстом */
+}
+.header-nav{
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+    justify-content: space-between
+}
+
+/* Картинка логотипа */
+.logo-image {
+    width: 60px;
+    height: 60px;
+}
+
+.logo-image img {
+    width: 100%;
+    height: 100%;
+}
+
+/* Текст логотипа */
+.logo-text {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0f0;
+    letter-spacing: 2px;
+}
+
+/* Навигация (справа) */
+.header-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: normal;
+    transition: color 0.3s;
+}
+
+.header-nav a:hover {
+    color: #0f0; /* при наведении меняем цвет */
+}
+
+
+.container {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 30px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Заголовок посту */
+.container h2 {
+    font-size: 2rem;
+    color: #222;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* Інформація про автора, категорію */
+.container p strong {
+    color: #007bff;
+}
+
+/* Зображення превʼю */
+img.img-fluid {
+    width: 100%;
+    border-radius: 8px;
+    margin: 20px 0;
+    transition: transform 0.3s ease;
+}
+
+img.img-fluid:hover {
+    transform: scale(1.02);
+}
+
+/* Лайки / дизлайки */
+.container p:last-of-type {
+    font-size: 1rem;
+    color: #444;
+}
+
+/* Роздільна лінія */
+hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 30px 0;
+}
+
+/* Коментарі */
+h4 {
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Один коментар */
+.border {
+    background: #f9fafc;
+    border: 1px solid #e4e7eb;
+    border-radius: 8px;
+    padding: 15px;
+    transition: box-shadow 0.2s ease;
+}
+
+.border:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.border strong {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.border small {
+    float: right;
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.border p {
+    margin: 8px 0;
+    color: #333;
+}
+
+/* Форма коментаря */
+form {
+    background: #f9fafc;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e4e7eb;
+}
+
+form textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 1rem;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+}
+
+/* Кнопка відправки */
+form .btn-primary {
+    background-color: #007bff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+form .btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+/* Повідомлення про необхідність входу */
+.container a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.container a:hover {
+    text-decoration: underline;
+}
+
+.btn-danger{
+
+    background-color: #ff0000;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+}
+footer{
+    display: flex;
+    flex-direction: column;
+    background: rgb(20, 19, 19);
+    padding:20px 0 20px 0;
+    align-items: center;
+    color: #0f0;
+    gap: 10px;
+
+}
+.social-networks{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+
+    gap: 10px;
+}
+.social-networks-icon img{
+    width: 40px;
+    height: 40px;
+
+}

@@ -1,0 +1,212 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+     display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #222;
+    color: #e0ffe0;
+}
+html, body {
+    height: 100%;
+}
+
+
+
+
+
+
+.blog-container {
+    flex: 1;
+}
+
+
+/* Header контейнер */
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between; /* Раздвигаем элементы слева и справа */
+    background: rgb(21, 21, 21);
+    padding: 30px 20px; /* внутренние отступы сверху/снизу и слева/справа */
+    margin-bottom: 40px;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Логотип + текст */
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* расстояние между картинкой и текстом */
+}
+.header-nav{
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+    justify-content: space-between
+}
+
+/* Картинка логотипа */
+.logo-image {
+    width: 60px;
+    height: 60px;
+}
+
+.logo-image img {
+    width: 100%;
+    height: 100%;
+}
+
+/* Текст логотипа */
+.logo-text {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0f0;
+    letter-spacing: 2px;
+}
+
+/* Навигация (справа) */
+.header-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: normal;
+    transition: color 0.3s;
+}
+
+.header-nav a:hover {
+    color: #0f0; /* при наведении меняем цвет */
+}
+
+
+
+/* Контейнер блогу */
+.blog-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 100px;
+}
+
+.blog-title {
+    text-align: center;
+    color: #0f0;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+}
+
+/* Карточка поста */
+.blog-post {
+    background: #1a1a1a;
+    border: 2px solid #0f0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0,255,0,0.2);
+}
+
+.blog-post:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px rgba(0,255,0,0.4);
+}
+
+/* Прев’ю зображення */
+.preview-img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Заголовок */
+.blog-post h3 {
+    color: #0f0;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+/* Інформація про автора */
+.blog-author {
+    color: #aaffaa;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+/* Текст поста */
+.blog-content {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Нижня частина карточки (лайки/дизлайки) */
+.blog-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 20px;
+    color: #0f0;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Кнопка "читати далі" */
+.read-more {
+    align-self: flex-start;
+    background: #0f0;
+    color: #111;
+    font-weight: bold;
+    padding: 10px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s;
+    margin-top: 15px;
+}
+
+.read-more:hover {
+    background: #111;
+    color: #0f0;
+    box-shadow: 0 0 10px #0f0;
+}
+
+/* Відсутність постів */
+.blog-container p {
+    text-align: center;
+    color: #888;
+    font-size: 1.3rem;
+}
+
+footer{
+    display: flex;
+    flex-direction: column;
+    background: rgb(20, 19, 19);
+    padding:20px 0 20px 0;
+    align-items: center;
+    color: #0f0;
+    gap: 10px;
+
+}
+.social-networks{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+
+    gap: 10px;
+}
+.social-networks-icon img{
+    width: 40px;
+    height: 40px;
+
+}
