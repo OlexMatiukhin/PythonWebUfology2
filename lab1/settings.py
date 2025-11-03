@@ -71,7 +71,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'lab1.wsgi.application'
-
+GIT_BRANCH = os.getenv("RENDER_GIT_BRANCH", "unknown")
 if GIT_BRANCH == "develop":
     ENVIRONMENT = "sandbox"
     DEBUG = True
