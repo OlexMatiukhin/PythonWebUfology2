@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from posts.froms import BlogPostForm, CommentForm
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import BlogPost
+from .models import BlogPost, Comment
 
 
 @login_required
@@ -92,3 +92,58 @@ def delete_post_view(request, post_id):
     return redirect('blog:post_detail', post_id=post.id)
 
 
+@login_required
+def toggle_comment_like_view(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    user = request.user
+
+    if user in comment.likes.all():
+        comment.likes.remove(user)
+    else:
+        comment.likes.add(user)
+        comment.dislikes.remove(user)
+
+    return redirect('users:posts:post_detail', pk=comment.post.pk)
+
+
+@login_required
+def toggle_comment_dislike_view(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    user = request.user
+
+    if user in comment.dislikes.all():
+        comment.dislikes.remove(user)
+    else:
+        comment.dislikes.add(user)
+        comment.likes.remove(user)
+
+    return redirect('users:posts:post_detail', pk=comment.post.pk)
+
+
+
+@login_required
+def toggle_post_like_view(request, pk):
+    post = get_object_or_404(BlogPost, pk=pk)
+    user = request.user
+
+    if user in post.likes.all():
+        post.likes.remove(user)
+    else:
+        post.likes.add(user)
+        post.dislikes.remove(user)  # нельзя и лайк и дизлайк
+
+    return redirect('users:posts:post_detail', pk=pk)
+
+
+@login_required
+def toggle_post_dislike_view(request, pk):
+    post = get_object_or_404(BlogPost, pk=pk)
+    user = request.user
+
+    if user in post.dislikes.all():
+        post.dislikes.remove(user)
+    else:
+        post.dislikes.add(user)
+        post.likes.remove(user)
+
+    return redirect('users:posts:post_detail', pk=pk)

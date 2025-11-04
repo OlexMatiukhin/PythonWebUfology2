@@ -16,9 +16,16 @@ class BlogPost(models.Model):
     preview_image = models.ImageField(upload_to="blog_previews/", blank=True, null=True, verbose_name="Прев'ю фото")
     created_at= models.DateTimeField(auto_now_add=True, verbose_name="Дата свторення")
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name="Автор")
-    likes = models.PositiveIntegerField(default=0, verbose_name="Лайки")
-    dislikes = models.PositiveIntegerField(default=0, verbose_name="Дизлайки")
+    likes = models.ManyToManyField(CustomUser, related_name='liked_posts', blank=True)
+    dislikes = models.ManyToManyField(CustomUser, related_name='disliked_posts', blank=True)
+
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Категорія")
+    def total_likes(self):
+        return self.likes.count()
+
+    def total_dislikes(self):
+        return self.dislikes.count()
+
     class Meta:
         ordering = ['-created_at']
     def __str__(self):
@@ -28,9 +35,14 @@ class Comment(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name="Автор")
     text = models.TextField(verbose_name="Текст коментаря")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата створення")
-    likes = models.PositiveIntegerField(default=0, verbose_name="Лайки")
-    dislikes = models.PositiveIntegerField(default=0, verbose_name="Дизлайки")
+    likes = models.ManyToManyField(CustomUser, related_name='liked_comments', blank=True)
+    dislikes = models.ManyToManyField(CustomUser, related_name='disliked_comments', blank=True)
 
+    def total_likes(self):
+        return self.likes.count()
+
+    def total_dislikes(self):
+        return self.dislikes.count()
     class Meta:
         ordering = ['-created_at']
 

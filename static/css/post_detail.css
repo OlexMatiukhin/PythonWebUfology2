@@ -240,3 +240,8 @@ footer{
     height: 40px;
 
 }
+
+.like-form, .dislike-form{
+    display: inline;
+    padding: 0px;
+}
