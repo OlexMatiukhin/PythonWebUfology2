@@ -89,7 +89,7 @@ def delete_post_view(request, post_id):
     if request.method == "POST":
         post.delete()
         return redirect('users:main_page')  #
-    return redirect('blog:post_detail', post_id=post.id)
+    return redirect('users:posts:blogger_posts_detail', post_id=post.id)
 
 
 @login_required
@@ -103,7 +103,8 @@ def toggle_comment_like_view(request, comment_id):
         comment.likes.add(user)
         comment.dislikes.remove(user)
 
-    return redirect('users:posts:post_detail', pk=comment.post.pk)
+    return redirect(request.META.get('HTTP_REFERER', 'users:posts:post_detail'))
+
 
 
 @login_required
@@ -117,7 +118,8 @@ def toggle_comment_dislike_view(request, comment_id):
         comment.dislikes.add(user)
         comment.likes.remove(user)
 
-    return redirect('users:posts:post_detail', pk=comment.post.pk)
+
+    return redirect(request.META.get('HTTP_REFERER', 'users:posts:post_detail'))
 
 
 
@@ -132,7 +134,8 @@ def toggle_post_like_view(request, pk):
         post.likes.add(user)
         post.dislikes.remove(user)  # нельзя и лайк и дизлайк
 
-    return redirect('users:posts:post_detail', pk=pk)
+
+    return redirect(request.META.get('HTTP_REFERER', 'users:posts:post_detail'))
 
 
 @login_required
@@ -146,4 +149,5 @@ def toggle_post_dislike_view(request, pk):
         post.dislikes.add(user)
         post.likes.remove(user)
 
-    return redirect('users:posts:post_detail', pk=pk)
+
+    return redirect(request.META.get('HTTP_REFERER', 'users:posts:post_detail'))

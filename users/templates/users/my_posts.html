@@ -23,8 +23,8 @@
                 </p>
 
                 <div class="blog-footer">
-                    <span>👍 {{ post.likes }}</span>
-                    <span>👎 {{ post.dislikes }}</span>
+                    <span>👍 {{ post.likes.count }}</span>
+                    <span>👎 {{ post.dislikes.count }}</span>
                 </div>
 
                 <a href="{% url 'users:posts:blogger_posts_detail' post.id %}" class="read-more">Детально</a>
