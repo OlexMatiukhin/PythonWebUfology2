@@ -72,6 +72,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'lab1.wsgi.application'
 GIT_BRANCH = os.getenv("RENDER_GIT_BRANCH", "unknown")
+
+
 if GIT_BRANCH == "develop":
     ENVIRONMENT = "sandbox"
     DEBUG = True
@@ -79,9 +81,6 @@ elif GIT_BRANCH == "master":
     ENVIRONMENT = "production"
     DEBUG = False
 
-
-
-if os.getenv('DATABASE_URL'):
 
     DATABASES = {
         'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))

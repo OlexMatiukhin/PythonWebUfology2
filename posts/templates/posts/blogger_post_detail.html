@@ -28,7 +28,27 @@
             <strong>{{ comment.author.username }}</strong>
             <small class="text-muted">{{ comment.created_at|date:"d.m.Y H:i" }}</small>
             <p>{{ comment.text }}</p>
-            <p>👍 {{ comment.likes }} | 👎 {{ comment.dislikes }}</p>
+
+            {% if user.is_authenticated %}
+                <form action="{% url 'users:posts:toggle_comment_like' comment.id %}" method="post" class="like-form"  style="display:inline;">
+                {% csrf_token %}
+                    <button type="submit" class="btn-outline-success">
+                    👍 {{ comment.likes.count }}
+                    </button>
+                    </form>
+
+
+                 <form action="{% url 'users:posts:toggle_comment_dislike'  comment.id %}" method="post"  class="dislike-form" style="display:inline;">
+                 {% csrf_token %}
+                     <button type="submit" class="btn-outline-danger">
+                            👎 {{ comment.dislikes.count }}
+                     </button>
+                     </form>
+            {% else %}
+                <p>👍 {{ comment.likes.count }} | 👎 {{ comment.dislikes.count }}</p>
+                <hr>
+            {% endif %}
+
         </div>
     {% empty %}
         <p>Немає коментарів.</p>
