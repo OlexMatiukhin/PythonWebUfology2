@@ -1,8 +1,1 @@
-<<<<<<< HEAD
 .env
-__pycache__/
-*.pyc
-venv/
-=======
-.env
->>>>>>> release/v2.0.0
