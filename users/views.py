@@ -148,13 +148,11 @@ def register(request):
 
 def login(request):
     if request.user.is_authenticated:
-        if request.user.is_authenticated:
-            current_user = request.user
-            redirect_response = redirect_by_role(current_user)
-            if redirect_response:
-                return redirect_response
+        current_user = request.user
+        redirect_response = redirect_by_role(current_user)
+        if redirect_response:
+            return redirect_response
 
-    print("Функція працює")
     if request.method == "POST":
         form = LoginForm(request, data=request.POST)
         print(form.is_valid())
@@ -164,6 +162,8 @@ def login(request):
             user=auth.authenticate(username=username,password=password)
             if user:
                 auth.login(request,user)
+                return redirect(reverse('users:main_page'))
+
         context = {'form':form}
 
     else:
