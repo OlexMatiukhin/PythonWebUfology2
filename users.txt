@@ -1,7 +1,7 @@
 MainAdmin1!
 Users:
 IAMUSERGOOD
-MEGAUSER1!
+
 Bloggers:
 parasiuk_oleg
 Imbapas1#
@@ -11,6 +11,3 @@ CustomUser.objects.create_superuser(
     email='admin@example.com',
     password='supersecurepassword'
 )
-Реализовать модуль
-Пересмотреть апи
-Продумат  проект
