@@ -10,8 +10,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import BlogPost, Comment
 from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
-@login_required
+
 def create_post(request):
+    if not request.user.is_authenticated:
+        return redirect('/users/login')
     user=request.user
     if(user.is_authenticated):
         if user.role=="blogger" or user.role=="admin":
@@ -24,6 +26,7 @@ def create_post(request):
                     return redirect('users:main_page')
             else:
                 form = BlogPostForm()
+            print("Succes")
             return render(request, 'posts/create_post.html', {'form': form})
         else:
             return  redirect('users:main_page')
@@ -34,6 +37,8 @@ def create_post(request):
 
 @csrf_exempt
 def post_detail_view(request,pk):
+    if not request.user.is_authenticated:
+        return redirect('/users/login')
     post = get_object_or_404(BlogPost, pk=pk)
     comments = post.comments.all()
 
@@ -53,11 +58,14 @@ def post_detail_view(request,pk):
         'comments': comments,
         'form': form
     }
+    print("Succes")
     return render(request, 'posts/post_detail.html', context)
 
 
 @csrf_exempt
 def blogger_posts_detail_view(request,pk):
+    if not request.user.is_authenticated:
+        return redirect('/users/login')
     post = get_object_or_404(BlogPost, pk=pk)
     comments = post.comments.all()
 
@@ -77,12 +85,16 @@ def blogger_posts_detail_view(request,pk):
         'comments': comments,
         'form': form
     }
+    print("Succes")
     return render(request, 'posts/blogger_post_detail.html', context)
 
 
 @csrf_exempt
-@login_required
+
 def delete_post_view(request, post_id):
+
+    if not request.user.is_authenticated:
+        return redirect('/users/login')
     post = get_object_or_404(BlogPost, id=post_id)
     if request.user != post.author:
         return redirect('users:main_page')
@@ -92,8 +104,11 @@ def delete_post_view(request, post_id):
     return redirect('users:posts:blogger_posts_detail', post_id=post.id)
 
 @csrf_exempt
-@login_required
+
 def toggle_comment_like_view(request, comment_id):
+
+    if not request.user.is_authenticated:
+        return redirect('/users/login')
     comment = get_object_or_404(Comment, id=comment_id)
     user = request.user
 
@@ -102,13 +117,16 @@ def toggle_comment_like_view(request, comment_id):
     else:
         comment.likes.add(user)
         comment.dislikes.remove(user)
-
+    print("Succes")
     return redirect(request.META.get('HTTP_REFERER', 'users:posts:post_detail'))
 
 
 @csrf_exempt
-@login_required
+
 def toggle_comment_dislike_view(request, comment_id):
+
+    if not request.user.is_authenticated:
+        return redirect('/users/login')
     comment = get_object_or_404(Comment, id=comment_id)
     user = request.user
 
@@ -123,8 +141,10 @@ def toggle_comment_dislike_view(request, comment_id):
 
 
 @csrf_exempt
-@login_required
+
 def toggle_post_like_view(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('/users/login')
     post = get_object_or_404(BlogPost, pk=pk)
     user = request.user
 
@@ -141,8 +161,10 @@ def toggle_post_like_view(request, pk):
     return redirect('users:posts:post_detail', pk=pk)
 
 @csrf_exempt
-@login_required
+
 def toggle_post_dislike_view(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('/users/login')
     post = get_object_or_404(BlogPost, pk=pk)
     user = request.user
 

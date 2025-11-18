@@ -16,6 +16,11 @@ import dj_database_url
 from dotenv import load_dotenv
 
 
+LOGIN_URL = '/users/login/'
+LOGIN_REDIRECT_URL = '/users/main_page/'
+
+APPEND_SLASH = False
+
 ENVIRONMENT = os.getenv("ENVIRONMENT", "local")
 # Load environment variables from .env if present
 load_dotenv()
@@ -95,6 +100,7 @@ else:
             'PASSWORD': os.getenv('DB_PASSWORD'),
             'HOST': os.getenv('DB_HOST', 'localhost'),
             'PORT': os.getenv('DB_PORT', '5432'),
+            'CONN_MAX_AGE': 60
         }
     }
 

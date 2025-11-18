@@ -18,13 +18,16 @@ from django.views.decorators.csrf import csrf_exempt
 
 def redirect_by_role(user):
     if not user.is_authenticated:
-        return None;
+        return None
+
     role = getattr(user, 'role', None)
 
     if user.is_superuser or user.is_staff:
         return redirect(reverse('users:admin_main'))
-    elif role == 'user' or role=="blogger":
+    elif role in ['user', 'blogger']:
         return redirect(reverse('users:main_page'))
+    else:
+        return redirect('/')
 
 def redirect_by_role_main(user):
 
@@ -57,15 +60,19 @@ def landing(request):
 
     return render(request, 'users/landing.html')
 @csrf_exempt
-@login_required
+
 def admin_main(request):
     current_user = request.user
     role = getattr(current_user, 'role', None)
+    if not request.user.is_authenticated:
+        return redirect('/users/login')
     if current_user.is_authenticated:
         if (role == "admin"):
+            print("Succes")
             return render(request, 'users/admin_main_page.html')
         else:
             redirect_response = redirect_by_role_main(current_user)
+
             if redirect_response:
                 return redirect_response
     return redirect(reverse('users:login'))
@@ -73,9 +80,11 @@ def admin_main(request):
 
 
 @csrf_exempt
-@login_required
+
 def main_page(request):
     current_user = request.user
+    if not request.user.is_authenticated:
+        return redirect('/users/login')
     role = getattr(current_user, 'role', None)
     if current_user.is_authenticated:
         if (role == "user" or role=="blogger"):
@@ -84,6 +93,7 @@ def main_page(request):
                 'posts': BlogPost.objects.all()
 
             }
+            print("Succes")
             return render(request, 'users/main_page.html', context)
         else:
 
@@ -91,7 +101,7 @@ def main_page(request):
             if redirect_response:
                 return redirect_response
     print("Redirect")
-    return redirect(reverse('users:login'))
+    return redirect('/users/login/')
 
 
 
@@ -180,13 +190,19 @@ def logout_view(request):
     messages.success(request, "Ви вийшли з акаунту успішно!")
     return redirect('landing')
 @csrf_exempt
-@login_required
+
 def profile_view(request):
+    if not request.user.is_authenticated:
+        return redirect('/users/login')
+    print("Succes")
     return render(request, 'users/profile.html')
 @csrf_exempt
-@login_required
+
 def my_posts_view(request):
+    if not request.user.is_authenticated:
+        return redirect('/users/login')
     user = request.user
     posts = BlogPost.objects.filter(author=user)
     context = {'posts': posts}
+    print("Succes")
     return render(request, 'users/my_posts.html', context)
