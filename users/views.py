@@ -13,7 +13,7 @@ from django.urls import reverse_lazy
 from posts.models import BlogPost
 from .forms import RegisterForm, LoginForm
 from django.shortcuts import render
-
+from django.views.decorators.csrf import csrf_exempt
 
 
 def redirect_by_role(user):
@@ -39,7 +39,7 @@ def redirect_by_role_main(user):
 
 
 
-
+@csrf_exempt
 @login_required
 def home(request):
     if request.user.role == 'admin':
@@ -48,7 +48,7 @@ def home(request):
         return redirect(reverse('users:main_page'))
 
 
-
+@csrf_exempt
 def landing(request):
     current_user = request.user
     redirect_response=redirect_by_role(current_user)
@@ -56,6 +56,7 @@ def landing(request):
         return redirect_response
 
     return render(request, 'users/landing.html')
+@csrf_exempt
 @login_required
 def admin_main(request):
     current_user = request.user
@@ -71,7 +72,7 @@ def admin_main(request):
 
 
 
-
+@csrf_exempt
 @login_required
 def main_page(request):
     current_user = request.user
@@ -89,6 +90,7 @@ def main_page(request):
             redirect_response = redirect_by_role_main(current_user)
             if redirect_response:
                 return redirect_response
+    print("Redirect")
     return redirect(reverse('users:login'))
 
 
@@ -116,7 +118,7 @@ def blogger_main(request):
     return redirect(reverse('users:login'))"""
 
 
-
+@csrf_exempt
 def register(request):
     if request.user.is_authenticated:
         current_user = request.user
@@ -145,7 +147,7 @@ def register(request):
     context = {'form': form}
     return render(request, 'users/register.html', context)
 
-
+@csrf_exempt
 def login(request):
     if request.user.is_authenticated:
         current_user = request.user
@@ -172,16 +174,16 @@ def login(request):
     return render(request, "users/login.html", context)
 
 
-
+@csrf_exempt
 def logout_view(request):
     logout(request)
     messages.success(request, "Ви вийшли з акаунту успішно!")
     return redirect('landing')
-
+@csrf_exempt
 @login_required
 def profile_view(request):
     return render(request, 'users/profile.html')
-
+@csrf_exempt
 @login_required
 def my_posts_view(request):
     user = request.user
