@@ -1,9 +1,8 @@
 .env
 
+__pycache__/
+*.py[cod]
 *$py.class
 venv/
 users.txt
-
 locustfile.py
-*.pyc
-__pycache__/
