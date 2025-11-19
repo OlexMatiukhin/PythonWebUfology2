@@ -12,5 +12,5 @@ urlpatterns = [
     path('logout', user_views.logout_view, name='logout'),
     path('profile/', user_views.profile_view, name='profile'),
     path('my_posts/', user_views.my_posts_view, name='my_posts'),
-    path('', include('posts.urls', namespace='users')),
+    path('', include('posts.urls', namespace='posts')),
 ]

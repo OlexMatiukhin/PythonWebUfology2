@@ -1,4 +1,6 @@
 # Create your views here.
+from django.core.cache import cache
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.contrib import auth, messages
 from django.contrib.auth import   logout
@@ -68,7 +70,6 @@ def admin_main(request):
         return redirect('/users/login')
     if current_user.is_authenticated:
         if (role == "admin"):
-            print("Succes")
             return render(request, 'users/admin_main_page.html')
         else:
             redirect_response = redirect_by_role_main(current_user)
@@ -80,7 +81,6 @@ def admin_main(request):
 
 
 @csrf_exempt
-
 def main_page(request):
     current_user = request.user
     if not request.user.is_authenticated:
@@ -88,20 +88,46 @@ def main_page(request):
     role = getattr(current_user, 'role', None)
     if current_user.is_authenticated:
         if (role == "user" or role=="blogger"):
+
+            #posts_list = BlogPost.objects.select_related('author', 'category').prefetch_related('likes',
+                                                                                                #'dislikes').order_by(
+                #'-created_at')
+
+
+            #paginator = Paginator(posts_list, 10)
+
+
+            #page_number = request.GET.get('page')
+            # posts = paginator.get_page(page_number)
+            page_number = request.GET.get('page', 1)
+            cache_key = f'my_posts_{current_user.id}_{page_number}'
+            posts_page = cache.get(cache_key)
+
+            if not posts_page:
+                posts_list = BlogPost.objects.filter(author=current_user) \
+                    .select_related('category') \
+                    .prefetch_related('likes', 'dislikes') \
+                    .order_by('-created_at')
+                paginator = Paginator(posts_list, 10)
+                posts_page = paginator.get_page(page_number)
+                cache.set(cache_key, posts_page, 300)
+
+
             context = {
                 'title': 'Головна.',
-                'posts': BlogPost.objects.all()
+                'posts': posts_page
 
             }
-            print("Succes")
+
             return render(request, 'users/main_page.html', context)
         else:
 
             redirect_response = redirect_by_role_main(current_user)
             if redirect_response:
                 return redirect_response
-    print("Redirect")
+
     return redirect('/users/login/')
+
 
 
 
@@ -194,7 +220,6 @@ def logout_view(request):
 def profile_view(request):
     if not request.user.is_authenticated:
         return redirect('/users/login')
-    print("Succes")
     return render(request, 'users/profile.html')
 @csrf_exempt
 
@@ -202,7 +227,29 @@ def my_posts_view(request):
     if not request.user.is_authenticated:
         return redirect('/users/login')
     user = request.user
-    posts = BlogPost.objects.filter(author=user)
-    context = {'posts': posts}
-    print("Succes")
+
+    """posts_list = BlogPost.objects.select_related('author', 'category').prefetch_related('likes',
+                                                                                        'dislikes').order_by(
+        '-created_at')
+
+    paginator = Paginator(posts_list, 10)
+
+    page_number = request.GET.get('page')
+    posts = paginator.get_page(page_number)"""
+    page_number = int(request.GET.get('page', 1))
+    cache_key = f'my_posts_{user.id}_{page_number}'
+    posts_page = cache.get(cache_key)
+
+    if not posts_page:
+        posts_list = BlogPost.objects.filter(author=user) \
+            .select_related('category') \
+            .prefetch_related('likes', 'dislikes') \
+            .order_by('-created_at')
+        paginator = Paginator(posts_list, 10)
+        posts_page = paginator.get_page(page_number)
+        cache.set(cache_key, posts_page, 300)
+
+    context = {'posts': posts_page}
+
+
     return render(request, 'users/my_posts.html', context)

@@ -1,3 +1,4 @@
+from django.core.cache import cache
 from django.shortcuts import render
 
 # Create your views here.
@@ -39,8 +40,16 @@ def create_post(request):
 def post_detail_view(request,pk):
     if not request.user.is_authenticated:
         return redirect('/users/login')
-    post = get_object_or_404(BlogPost, pk=pk)
+    cache_key = f'post_{pk}'
+    post = cache.get(cache_key)
+
+    if not post:
+        post = get_object_or_404(
+        BlogPost.objects.select_related('author', 'category').prefetch_related('comments__author', 'likes', 'dislikes'),
+            pk=pk)
+        cache.set(cache_key, post, 300)
     comments = post.comments.all()
+
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -58,7 +67,7 @@ def post_detail_view(request,pk):
         'comments': comments,
         'form': form
     }
-    print("Succes")
+
     return render(request, 'posts/post_detail.html', context)
 
 
@@ -66,7 +75,12 @@ def post_detail_view(request,pk):
 def blogger_posts_detail_view(request,pk):
     if not request.user.is_authenticated:
         return redirect('/users/login')
-    post = get_object_or_404(BlogPost, pk=pk)
+    cache_key = f'post_{pk}'
+    post = cache.get(cache_key)
+    if not post:
+        post = get_object_or_404(BlogPost.objects.select_related('author', 'category').prefetch_related('comments__author', 'likes', 'dislikes'),
+        pk=pk)
+        cache.set(cache_key, post, 300)
     comments = post.comments.all()
 
     if request.method == 'POST':
@@ -85,7 +99,7 @@ def blogger_posts_detail_view(request,pk):
         'comments': comments,
         'form': form
     }
-    print("Succes")
+
     return render(request, 'posts/blogger_post_detail.html', context)
 
 
@@ -112,12 +126,12 @@ def toggle_comment_like_view(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
     user = request.user
 
-    if user in comment.likes.all():
+    if comment.likes.filter(id=user.id).exists():
         comment.likes.remove(user)
     else:
         comment.likes.add(user)
         comment.dislikes.remove(user)
-    print("Succes")
+
     return redirect(request.META.get('HTTP_REFERER', 'users:posts:post_detail'))
 
 
@@ -130,7 +144,7 @@ def toggle_comment_dislike_view(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
     user = request.user
 
-    if user in comment.dislikes.all():
+    if user in comment.dislikes.all() :
         comment.dislikes.remove(user)
     else:
         comment.dislikes.add(user)
@@ -148,7 +162,7 @@ def toggle_post_like_view(request, pk):
     post = get_object_or_404(BlogPost, pk=pk)
     user = request.user
 
-    if user in post.likes.all():
+    if post.likes.filter(id=user.id).exists() :
         post.likes.remove(user)
     else:
         post.likes.add(user)
@@ -168,7 +182,10 @@ def toggle_post_dislike_view(request, pk):
     post = get_object_or_404(BlogPost, pk=pk)
     user = request.user
 
-    if user in post.dislikes.all():
+
+
+
+    if post.dislikes.filter(id=user.id).exists():
         post.dislikes.remove(user)
     else:
         post.dislikes.add(user)
