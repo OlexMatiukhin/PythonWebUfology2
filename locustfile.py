@@ -7,7 +7,7 @@ class RegularUserFlow(SequentialTaskSet):
         self.login()
 
     def login(self):
-        response = self.client.post("/users/login", data={
+        response = self.client.post("users/login", data={
             "username": "pahenko",
             "password": "Patreon41"
         })
@@ -15,23 +15,23 @@ class RegularUserFlow(SequentialTaskSet):
 
     @task
     def view_main_page(self):
-        self.client.get("/users/main_page")
+        self.client.get("users/main_page")
 
     @task
     def view_post_detail(self):
-        self.client.get("/users/post_detail/1/")
+        self.client.get("users/post_detail/1/")
 
     @task
     def like_post(self):
         self.client.post(
-            "/users/post_detail/1/like/",
+            "users/post_detail/1/like/",
             data={},
             name="[POST] Toggle Post Like"
         )
 
     @task
     def comment_post(self):
-        self.client.post("/users/post_detail/1/", data={
+        self.client.post("users/post_detail/1/", data={
             "content": "Nice post from RegularUser!"
         })
         self.interrupt()
@@ -40,12 +40,12 @@ class RegularUserFlow(SequentialTaskSet):
 class BloggerUserFlow(SequentialTaskSet):
 
     def on_start(self):
-        self.client.get("/users/logout")
+        self.client.get("users/logout")
         self.login()
         self.post_id = None
 
     def login(self):
-        response = self.client.post("/users/login", data={
+        response = self.client.post("users/login", data={
             "username": "parasiuk_oleg",
             "password": "Imbapas1#"
         })
@@ -53,7 +53,7 @@ class BloggerUserFlow(SequentialTaskSet):
 
     @task
     def create_post(self):
-        response = self.client.post("/users/create_post", data={
+        response = self.client.post("users/create_post", data={
             "title": "Test Post from Blogger",
             "content": "Some content here"
         })
@@ -67,13 +67,13 @@ class BloggerUserFlow(SequentialTaskSet):
     @task
     def view_post_detail(self):
         if self.post_id:
-            self.client.get(f"/users/blogger_posts_detail/{self.post_id}/")
+            self.client.get(f"users/blogger_posts_detail/{self.post_id}/")
 
     @task
     def like_post(self):
         if self.post_id:
             self.client.post(
-                f"/users/post_detail/{self.post_id}/like/",
+                f"users/post_detail/{self.post_id}/like/",
                 data={},
                 name="[POST] Toggle Post Like"
             )
@@ -82,13 +82,13 @@ class BloggerUserFlow(SequentialTaskSet):
     def comment_post(self):
         if self.post_id:
             self.client.post(
-                f"/users/post_detail/{self.post_id}/",
+                f"users/post_detail/{self.post_id}/",
                 data={"content": "Nice post from Blogger!"}
             )
 
     @task
     def my_posts(self):
-        self.client.get("/users/my_posts/")
+        self.client.get("users/my_posts/")
 
     @task
     def delete_post(self):
