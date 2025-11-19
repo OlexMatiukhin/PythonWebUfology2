@@ -32,6 +32,6 @@ class CustomUser(AbstractUser):
         ('admin', 'Admin'),
     )
 
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='user')
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='user', db_index=True)
 
     objects = CustomUserManager()

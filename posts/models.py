@@ -6,6 +6,11 @@ from django.db import models
 from users.models import CustomUser
 
 
+from django.db import models
+
+from users.models import CustomUser
+
+
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="Категорія")
     def __str__(self):
@@ -14,12 +19,12 @@ class BlogPost(models.Model):
     title = models.CharField(max_length=200, verbose_name="Заголовок")
     content = models.TextField(verbose_name="Текст посту")
     preview_image = models.ImageField(upload_to="blog_previews/", blank=True, null=True, verbose_name="Прев'ю фото")
-    created_at= models.DateTimeField(auto_now_add=True, verbose_name="Дата свторення")
-    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name="Автор")
+    created_at= models.DateTimeField(auto_now_add=True, verbose_name="Дата свторення", db_index=True,)
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name="Автор",db_index=True,)
     likes = models.ManyToManyField(CustomUser, related_name='liked_posts', blank=True)
     dislikes = models.ManyToManyField(CustomUser, related_name='disliked_posts', blank=True)
 
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Категорія")
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Категорія",db_index=True,)
     def total_likes(self):
         return self.likes.count()
 
@@ -31,10 +36,10 @@ class BlogPost(models.Model):
     def __str__(self):
         return self.title
 class Comment(models.Model):
-    post = models.ForeignKey('BlogPost', on_delete=models.CASCADE, related_name='comments', verbose_name="Пост")
-    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name="Автор")
+    post = models.ForeignKey('BlogPost', on_delete=models.CASCADE, related_name='comments', verbose_name="Пост",db_index=True)
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name="Автор",db_index=True)
     text = models.TextField(verbose_name="Текст коментаря")
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата створення")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата створення", db_index=True)
     likes = models.ManyToManyField(CustomUser, related_name='liked_comments', blank=True)
     dislikes = models.ManyToManyField(CustomUser, related_name='disliked_comments', blank=True)
 
@@ -48,4 +53,5 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Коментар від {self.author.username} до '{self.post.title}'"
+
 
